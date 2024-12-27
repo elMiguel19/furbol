@@ -1,14 +1,19 @@
 [
-  {
-      "username": "miguel",
-      "password": "1234"
-  },
-  {
-      "username": "beto",
-      "password": "1234"
-  },
-  {
-      "username": "admin",
-      "password": "admin"
-  }
+{
+"username": "miguel",
+"password": "1234",
+"id": 1,
+"comentario": ""
+},
+{
+    "username": "beto",
+    "password": "1234",
+    "id": 2,
+    "comentario": ""
+},
+{
+    "username": "admin",
+    "password": "admin",
+    "id": 0
+}
 ]

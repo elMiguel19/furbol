@@ -16,6 +16,7 @@ document.getElementById('loginButton').addEventListener('click', () => {
             const user = users.find(user => user.username === username && user.password === password);
             if (user.username == "admin") 
             {
+                localStorage.setItem('username', username);
                 errorMessage.style.color = 'green';
                 errorMessage.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
                 setTimeout(() => {
@@ -24,6 +25,7 @@ document.getElementById('loginButton').addEventListener('click', () => {
             }
             else if( user.username != "admin")
             {
+                localStorage.setItem('username', username);
                 errorMessage.style.color = 'green';
                 errorMessage.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
                 setTimeout(() => {
