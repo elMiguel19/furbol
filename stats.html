@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas</title>
+    <link rel="stylesheet" href="styles/stast_style.css">
+</head>
+<body>
+    <h1>Estadísticas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Aciertos</th>
+                <th>Fallos</th>
+                <th>Jornadas Ganadas</th>
+                <th>Cabeza</th>
+            </tr>
+        </thead>
+        <tbody id="stats-table">
+        </tbody>
+    </table>
+    <button class="back-button" onclick="window.location.href='index.html'">Volver a Inicio</button>
+    <script>
+        fetch('data.json') 
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al cargar el archivo JSON');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const tableBody = document.getElementById('stats-table');
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.username}</td>
+                        <td>${item.aciertos}</td>
+                        <td>${item.fallos}</td>
+                        <td>${item['jornadas ganadas']}</td>
+                        <td>${item.cabeza}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Hubo un problema con la operación fetch:', error);
+            });
+    </script>
+</body>
+</html>

@@ -1,19 +1,37 @@
 [
 {
-"username": "miguel",
-"password": "1234",
-"id": 1,
-"comentario": ""
+    "username": "miguel",
+    "aciertos": 10,
+    "fallos" :2,
+    "jornadas ganadas": 3,
+    "cabeza" : "muy grande"
 },
 {
     "username": "beto",
-    "password": "1234",
-    "id": 2,
-    "comentario": ""
+    "aciertos": 0,
+    "fallos" :3,
+    "jornadas ganadas": 13,
+    "cabeza" : "normal"
+    },
+{
+    "username": "paco",
+    "aciertos": 1,
+    "fallos" :20,
+    "jornadas ganadas": 5,
+    "cabeza" : "grande"
 },
 {
-    "username": "admin",
-    "password": "admin",
-    "id": 0
+    "username": "klk",
+    "aciertos": 1,
+    "fallos" :20,
+    "jornadas ganadas": 5,
+    "cabeza" : "grande"
+},
+{
+    "username": "kkkkkkkk",
+    "aciertos": 1,
+    "fallos" :20,
+    "jornadas ganadas": 5,
+    "cabeza" : "grande"
 }
 ]
