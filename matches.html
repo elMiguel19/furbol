@@ -1,24 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Sheets API Example</title>
+    <title>Partidos de Fútbol</title>
     <link rel="stylesheet" href="styles/matches_styles.css">
 </head>
 <body>
-    <h1>Tabla desde Google Sheets</h1>
-    <table id="data-table">
-        <thead>
-            <tr>
-                <th>Columna 1</th>
-                <th>Columna 2</th>
-                <th>Columna 3</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <button class="back-button" onclick="window.location.href='index.html'">Volver a Inicio</button>
+    <div class="container">
+        <h1>Partidos de Fútbol</h1>
+        
+        <div class="button-container">
+            <button class="back-button" onclick="window.location.href='index.html'">Volver a Inicio</button>
+            <button class="back-button" onclick="window.location.href='stats.html'">Estadísticas</button>
+        </div>
+        <div id="partidos"></div>
+    </div>
+    <script>
+        fetch('match.json')
+    .then(response => response.json())
+    .then(data => {
+        const partidosContainer = document.getElementById('partidos');
+        
+        // Función para formatear las fechas
+        const formatFechaEspaña = (fechaISO) => {
+            const [year, month, day] = fechaISO.split('-');
+            return `${day}/${month}/${year}`;
+        };
+
+        // Ordenar todos los partidos por fecha (cronológico)
+        const partidosOrdenados = data.partidos.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+
+        // Renderizar los partidos
+        partidosOrdenados.forEach(partido => {
+            const partidoDiv = document.createElement('div');
+            partidoDiv.className = 'partido';
+            partidoDiv.innerHTML = `
+                <h3>${formatFechaEspaña(partido.fecha)} - ${partido.hora} - ${partido.estadio.nombre}</h3>
+                <div class="equipos">
+                    <div>
+                        <img src="${partido.equipos.local.escudo}" alt="Escudo ${partido.equipos.local.nombre}">
+                        <p>${partido.equipos.local.nombre}</p>
+                    </div>
+                    <div class="marcador">
+                        ${partido.resultado 
+                            ? `${partido.resultado.local} - ${partido.resultado.visitante}` 
+                            : `<p>VS</p>`}
+                    </div>
+                    <div>
+                        <img src="${partido.equipos.visitante.escudo}" alt="Escudo ${partido.equipos.visitante.nombre}">
+                        <p>${partido.equipos.visitante.nombre}</p>
+                    </div>
+                </div>
+                ${
+                    partido.resultado 
+                        ? `<div class="goleadores">
+                                <strong>Goleadores:</strong>
+                                <ul>
+                                    ${partido.resultado.goleadores.map(g => `<li>${g.minuto}' ${g.jugador} (${g.equipo})</li>`).join('')}
+                                </ul>
+                            </div>`
+                        : `<p class="resultado">El partido aún no ha comenzado.</p>`
+                }
+                <p class="estado">Árbitro: ${partido.arbitro.nombre}</p>
+            `;
+
+            partidosContainer.appendChild(partidoDiv);
+        });
+    })
+    .catch(error => {
+        console.error('Error al cargar el JSON:', error);
+        document.getElementById('partidos').innerHTML = '<p>Error al cargar los datos de los partidos.</p>';
+    });
+
+    </script>
 </body>
 </html>
