@@ -18,60 +18,60 @@
     </div>
     <script>
         fetch('match.json')
-    .then(response => response.json())
-    .then(data => {
-        const partidosContainer = document.getElementById('partidos');
-        
-        // Función para formatear las fechas
-        const formatFechaEspaña = (fechaISO) => {
-            const [year, month, day] = fechaISO.split('-');
-            return `${day}/${month}/${year}`;
-        };
+        .then(response => response.json())
+        .then(data => {
+            const partidosContainer = document.getElementById('partidos');
+            
+            // Función para formatear las fechas
+            const formatFechaEspaña = (fechaISO) => {
+                const [year, month, day] = fechaISO.split('-');
+                return `${day}/${month}/${year}`;
+            };
 
-        // Ordenar todos los partidos por fecha (cronológico)
-        const partidosOrdenados = data.partidos.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+            // Ordenar todos los partidos por fecha (cronológico)
+            const partidosOrdenados = data.partidos.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
-        // Renderizar los partidos
-        partidosOrdenados.forEach(partido => {
-            const partidoDiv = document.createElement('div');
-            partidoDiv.className = 'partido';
-            partidoDiv.innerHTML = `
-                <h3>${formatFechaEspaña(partido.fecha)} - ${partido.hora} - ${partido.estadio.nombre}</h3>
-                <div class="equipos">
-                    <div>
-                        <img src="${partido.equipos.local.escudo}" alt="Escudo ${partido.equipos.local.nombre}">
-                        <p>${partido.equipos.local.nombre}</p>
+            // Renderizar los partidos
+            partidosOrdenados.forEach(partido => {
+                const partidoDiv = document.createElement('div');
+                partidoDiv.className = 'partido';
+                partidoDiv.innerHTML = `
+                    <h3>${formatFechaEspaña(partido.fecha)} - ${partido.hora} - ${partido.estadio.nombre}</h3>
+                    <div class="equipos">
+                        <div>
+                            <img src="${partido.equipos.local.escudo}" alt="Escudo ${partido.equipos.local.nombre}">
+                            <p>${partido.equipos.local.nombre}</p>
+                        </div>
+                        <div class="marcador">
+                            ${partido.resultado 
+                                ? `${partido.resultado.local} - ${partido.resultado.visitante}` 
+                                : `<p>VS</p>`}
+                        </div>
+                        <div>
+                            <img src="${partido.equipos.visitante.escudo}" alt="Escudo ${partido.equipos.visitante.nombre}">
+                            <p>${partido.equipos.visitante.nombre}</p>
+                        </div>
                     </div>
-                    <div class="marcador">
-                        ${partido.resultado 
-                            ? `${partido.resultado.local} - ${partido.resultado.visitante}` 
-                            : `<p>VS</p>`}
-                    </div>
-                    <div>
-                        <img src="${partido.equipos.visitante.escudo}" alt="Escudo ${partido.equipos.visitante.nombre}">
-                        <p>${partido.equipos.visitante.nombre}</p>
-                    </div>
-                </div>
-                ${
-                    partido.resultado 
-                        ? `<div class="goleadores">
-                                <strong>Goleadores:</strong>
-                                <ul>
-                                    ${partido.resultado.goleadores.map(g => `<li>${g.minuto}' ${g.jugador} (${g.equipo})</li>`).join('')}
-                                </ul>
-                            </div>`
-                        : `<p class="resultado">El partido aún no ha comenzado.</p>`
-                }
-                <p class="estado">Árbitro: ${partido.arbitro.nombre}</p>
-            `;
+                    ${
+                        partido.resultado 
+                            ? `<div class="goleadores">
+                                    <strong>Goleadores:</strong>
+                                    <ul>
+                                        ${partido.resultado.goleadores.map(g => `<li>${g.minuto}' ${g.jugador} (${g.equipo})</li>`).join('')}
+                                    </ul>
+                                </div>`
+                            : `<p class="resultado">El partido aún no ha comenzado.</p>`
+                    }
+                    <p class="estado">Árbitro: ${partido.arbitro.nombre}</p>
+                `;
 
-            partidosContainer.appendChild(partidoDiv);
+                partidosContainer.appendChild(partidoDiv);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar el JSON:', error);
+            document.getElementById('partidos').innerHTML = '<p>Error al cargar los datos de los partidos.</p>';
         });
-    })
-    .catch(error => {
-        console.error('Error al cargar el JSON:', error);
-        document.getElementById('partidos').innerHTML = '<p>Error al cargar los datos de los partidos.</p>';
-    });
 
     </script>
 </body>
