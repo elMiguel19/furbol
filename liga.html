@@ -15,7 +15,9 @@
             <button class="back-button" onclick="window.location.href='champions.html'">Champions</button>
         </div>
 
+        <div id="jornadas"></div>
         <div id="partidos"></div>
+
         <div class="button-container">
             <button class="back-button" onclick="window.location.href='index.html'">Volver a Inicio</button>
             <button class="back-button" onclick="window.location.href='stats.html'">Estadísticas</button>
@@ -26,50 +28,72 @@
         fetch('Liga-2024-10-to-2024-12.json')
             .then(response => response.json())
             .then(data => {
+                const jornadasContainer = document.getElementById('jornadas');
                 const partidosContainer = document.getElementById('partidos');
-                
-                // Función para formatear las fechas
-                const formatFechaEspaña = (fechaISO) => {
-                    const [year, month, day] = fechaISO.split('-');
-                    return `${day}/${month}/${year}`;
-                };
-    
-                // Ordenar todos los partidos por fecha (cronológico)
-                const partidosOrdenados = data.response.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date));
-    
-                // Renderizar los partidos
-                partidosOrdenados.forEach(partido => {
-                    const { fixture, teams, goals } = partido;
-                    const { fecha, hora } = (() => {
-                        const date = new Date(fixture.date);
-                        return {
-                            fecha: date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }),
-                            hora: date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-                        };
-                    })();
-    
-                    const partidoDiv = document.createElement('div');
-                    partidoDiv.className = 'partido';
-                    partidoDiv.innerHTML = `
-                        <h3>${fecha} - ${hora} - ${fixture.venue.name}</h3>
-                        <div class="equipos">
-                            <div>
-                                <img src="${teams.home.logo}" alt="Escudo ${teams.home.name}">
-                                <p>${teams.home.name}</p>
-                            </div>
-                            <div class="marcador">
-                                ${fixture.status.short === "NS" 
-                                    ? `<p>VS</p>` 
-                                    : `${goals.home ?? 0} - ${goals.away ?? 0}`}
-                            </div>
-                            <div>
-                                <img src="${teams.away.logo}" alt="Escudo ${teams.away.name}">
-                                <p>${teams.away.name}</p>
-                            </div>
-                        </div>
-                    `;
-                    partidosContainer.appendChild(partidoDiv);
+
+                // Agrupar partidos por jornada
+                const jornadas = data.response.reduce((acc, partido) => {
+                    const jornada = partido.league.round.match(/\d+/)?.[0]; // Extrae el número de la jornada
+                    if (!jornada) return acc;
+                    if (!acc[jornada]) acc[jornada] = [];
+                    acc[jornada].push(partido);
+                    return acc;
+                }, {});
+
+                // Ordenar jornadas numéricamente
+                const jornadasOrdenadas = Object.keys(jornadas).sort((a, b) => a - b);
+
+                // Crear botones para cada jornada
+                jornadasOrdenadas.forEach(jornada => {
+                    const button = document.createElement('button');
+                    button.className = 'jornada-button';
+                    button.textContent = `Jornada ${jornada}`;
+                    button.onclick = () => mostrarPartidos(jornada);
+                    jornadasContainer.appendChild(button);
                 });
+
+                // Mostrar partidos de una jornada específica
+                const mostrarPartidos = (jornada) => {
+                    partidosContainer.innerHTML = ''; // Limpiar partidos anteriores
+                    const partidos = jornadas[jornada];
+
+                    partidos.forEach(partido => {
+                        const { fixture, teams, goals } = partido;
+                        const { fecha, hora } = (() => {
+                            const date = new Date(fixture.date);
+                            return {
+                                fecha: date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+                                hora: date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
+                            };
+                        })();
+
+                        const partidoDiv = document.createElement('div');
+                        partidoDiv.className = 'partido';
+                        partidoDiv.innerHTML = `
+                            <h3>${fecha} - ${hora} - ${fixture.venue.name}</h3>
+                            <div class="equipos">
+                                <div>
+                                    <img src="${teams.home.logo}" alt="Escudo ${teams.home.name}">
+                                    <p>${teams.home.name}</p>
+                                </div>
+                                <div class="marcador">
+                                    ${fixture.status.short === "NS" 
+                                        ? `<p>VS</p>` 
+                                        : `${goals.home ?? 0} - ${goals.away ?? 0}`}
+                                </div>
+                                <div>
+                                    <img src="${teams.away.logo}" alt="Escudo ${teams.away.name}">
+                                    <p>${teams.away.name}</p>
+                                </div>
+                            </div>
+                        `;
+                        partidosContainer.appendChild(partidoDiv);
+                    });
+                };
+
+                // Mostrar la primera jornada por defecto
+                const primeraJornada = jornadasOrdenadas[0];
+                if (primeraJornada) mostrarPartidos(primeraJornada);
             })
             .catch(error => {
                 console.error('Error al cargar el JSON:', error);
