@@ -1,0 +1,136 @@
+{
+    "partidos": [
+    {
+        "id": 1,
+        "fecha": "2024-06-15",
+        "hora": "18:00",
+        "estadio": {
+            "nombre": "Estadio Santiago Bernabéu"
+        },
+        "equipos": {
+            "local": {
+                "nombre": "Real Madrid",
+                "escudo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYfjamjnmy3Y9RsQD0LuscCnsMnbNEjNjFxw&s"
+            },
+            "visitante": {
+                "nombre": "FC Barcelona",
+                "escudo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYfjamjnmy3Y9RsQD0LuscCnsMnbNEjNjFxw&s"
+            }
+        },
+        "resultado": {
+            "local": 2,
+            "visitante": 1,
+            "goleadores": [
+            {
+                "equipo": "Real Madrid",
+                "jugador": "Karim Benzema",
+                "minuto": 23
+            },
+            {
+                "equipo": "FC Barcelona",
+                "jugador": "Robert Lewandowski",
+                "minuto": 45
+            },
+            {
+                "equipo": "Real Madrid",
+                "jugador": "Vinícius Jr.",
+                "minuto": 78
+            }
+        ]
+        },
+        "arbitro": {
+            "nombre": "Carlos del Cerro Grande"
+        },
+        "estado_partido": "finalizado"
+        },
+        {
+        "id": 2,
+        "fecha": "2024-06-16",
+        "hora": "20:30",
+        "estadio": {
+            "nombre": "Old Trafford"
+        },
+        "equipos": {
+            "local": {
+                "nombre": "Manchester United",
+                "escudo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYfjamjnmy3Y9RsQD0LuscCnsMnbNEjNjFxw&s"
+        },
+        "visitante": {
+            "nombre": "Chelsea FC",
+            "escudo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYfjamjnmy3Y9RsQD0LuscCnsMnbNEjNjFxw&s"
+            }
+        },
+        "resultado": null,
+        "arbitro": {
+            "nombre": "Anthony Taylor"
+        },
+        "estado_partido": "programado"
+        },
+        {
+        "id": 3,
+        "fecha": "2024-06-14",
+        "hora": "21:00",
+        "estadio": {
+            "nombre": "Parc des Princes"
+        },
+        "equipos": {
+            "local": {
+                "nombre": "Paris Saint-Germain",
+                "escudo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYfjamjnmy3Y9RsQD0LuscCnsMnbNEjNjFxw&s"
+            },
+            "visitante": {
+                "nombre": "Olympique de Marseille",
+                "escudo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYfjamjnmy3Y9RsQD0LuscCnsMnbNEjNjFxw&s"
+            }
+        },
+        "resultado": {
+            "local": 3,
+            "visitante": 0,
+            "goleadores": [
+            {
+                "equipo": "Paris Saint-Germain",
+                "jugador": "Kylian Mbappé",
+                "minuto": 15
+            },
+            {
+                "equipo": "Paris Saint-Germain",
+                "jugador": "Neymar Jr.",
+                "minuto": 55
+            },
+            {
+                "equipo": "Paris Saint-Germain",
+                "jugador": "Lionel Messi",
+                "minuto": 78
+            }
+        ]
+        },
+        "arbitro": {
+            "nombre": "Clément Turpin"
+        },
+        "estado_partido": "finalizado"
+    },
+    {
+        "id": 4,
+        "fecha": "2024-06-17",
+        "hora": "19:00",
+        "estadio": {
+            "nombre": "Allianz Arena"
+            },
+        "equipos": {
+            "local": {
+            "nombre": "Bayern Múnich",
+            "escudo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYfjamjnmy3Y9RsQD0LuscCnsMnbNEjNjFxw&s"
+            },
+            "visitante": {
+            "nombre": "Borussia Dortmund",
+            "escudo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYfjamjnmy3Y9RsQD0LuscCnsMnbNEjNjFxw&s"
+            }
+        },
+        "resultado": null,
+        "arbitro": {
+            "nombre": "Felix Zwayer"
+        },
+        "estado_partido": "programado"
+        }
+    ]
+}
