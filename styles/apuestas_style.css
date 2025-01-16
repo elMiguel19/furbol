@@ -1,0 +1,52 @@
+/* Estilos generales */
+body {
+    text-align: center; /* Centra todo el contenido de texto */
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo para el título */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Contenedor de botones centrado */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espacio entre botones */
+    margin-top: 20px;
+}
+
+/* Estilo de los botones */
+.back-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #005ea3;
+}
+
+/* Estilo de la tabla */
+table {
+    width: 80%;
+    margin: 0 auto; /* Centra la tabla */
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}

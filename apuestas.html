@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Apuestas</title>
+    <link rel="stylesheet" href="styles/apuestas_style.css">
+</head>
+<body>
+    <h2>Tabla de Apuestas</h2>
+    <div id="botones-jornadas" class="button-container"></div>
+    <table>
+        <thead>
+            <tr id="tablaHead"></tr>
+        </thead>
+        <tbody id="tablaBody"></tbody>
+    </table>
+    <script>
+        // Lista manual de archivos
+        const archivos = [
+            "jornada_19.csv",
+            "jornada_20.csv",
+            "jornada_21.csv",
+            "jornada_22.csv",
+            "jornada_23.csv",
+            "jornada_24.csv",
+            "jornada_25.csv",
+            "jornada_26.csv",
+            "jornada_27.csv",
+            "jornada_28.csv",
+            "jornada_29.csv",
+            "jornada_30.csv",
+            "jornada_31.csv",
+            "jornada_32.csv",
+            "jornada_33.csv",
+            "jornada_34.csv",
+            "jornada_35.csv",
+            "jornada_36.csv",
+            "jornada_37.csv",
+            "jornada_38.csv"
+            // Agrega más archivos aquí
+        ];
+
+        function crearBotones() {
+            const container = document.getElementById('botones-jornadas');
+            container.innerHTML = ""; // Limpiar contenedor
+
+            archivos.forEach(archivo => {
+                const numeroJornada = archivo.match(/jornada_(\d+)\.csv/)[1]; // Extraer el número de jornada
+                const button = document.createElement('button');
+                button.textContent = `Jornada ${numeroJornada}`;
+                button.addEventListener('click', () => cargarCSV(`Apuestas/${archivo}`));
+                container.appendChild(button);
+            });
+        }
+
+        async function cargarCSV(rutaArchivo) {
+            try {
+                const response = await fetch(rutaArchivo); // Cargar archivo seleccionado
+                const data = await response.text();
+
+                const filas = data.trim().split(/\r?\n/);
+                const tablaHead = document.getElementById("tablaHead");
+                const tablaBody = document.getElementById("tablaBody");
+
+                // Limpiar la tabla antes de agregar datos
+                tablaHead.innerHTML = "";
+                tablaBody.innerHTML = "";
+
+                // Crear encabezados (primera fila del CSV)
+                const columnas = filas[0].split(";");
+                columnas.forEach(col => {
+                    let th = document.createElement("th");
+                    th.textContent = col;
+                    tablaHead.appendChild(th);
+                });
+
+                // Crear filas para cada jugador
+                for (let i = 1; i < filas.length; i++) {
+                    let fila = document.createElement("tr");
+                    let celdas = filas[i].split(";");
+
+                    celdas.forEach(celda => {
+                        let td = document.createElement("td");
+                        td.textContent = celda;
+                        fila.appendChild(td);
+                    });
+
+                    tablaBody.appendChild(fila); // Agregar la fila completa a la tabla
+                }
+            } catch (error) {
+                console.error("Error cargando el CSV:", error);
+            }
+        }
+
+        // Crear los botones al cargar la página
+        crearBotones();
+    </script>
+</body>
+</html>
