@@ -35,6 +35,12 @@ th {
     cursor: pointer;
     text-align: center;
 }
+.button-container {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    }
 .back-button:hover {
     background-color: #45a049;
 }
